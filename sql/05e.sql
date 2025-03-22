@@ -18,3 +18,23 @@
  * ```
  * This problem should be solved by a self join on the "film_category" table.
  */
+SELECT f.title
+FROM film f
+JOIN film_category fc1 ON f.film_id = fc1.film_id
+JOIN film_category fc2 ON f.film_id = fc2.film_id 
+    AND fc1.category_id < fc2.category_id
+WHERE fc1.category_id IN (
+    SELECT category_id
+    FROM film_category
+    JOIN film ON film_category.film_id = film.film_id
+    WHERE film.title = 'AMERICAN CIRCUS'
+)
+AND fc2.category_id IN (
+    SELECT category_id
+    FROM film_category
+    JOIN film ON film_category.film_id = film.film_id
+    WHERE film.title = 'AMERICAN CIRCUS'
+)
+GROUP BY f.title
+ORDER BY f.title;
+
