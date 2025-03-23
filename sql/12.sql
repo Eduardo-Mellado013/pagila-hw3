@@ -18,6 +18,6 @@ JOIN LATERAL (
     LIMIT 5
 ) AS latest ON true
 GROUP BY customer.customer_id, customer.first_name, customer.last_name
-HAVING COUNT(*) FILTER (WHERE latest.category_name = 'Action') >= 4
+HAVING COUNT(*) FILTER (WHERE latest.category_name = 'Action') >= 3
 ORDER BY customer.customer_id;
 
